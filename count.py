@@ -17,14 +17,15 @@ def getCount():
             print("Error, the count file is corrupt. Resetting to zero.")
             return 0
     
-def setCount(myCount):
+def setCount(myCount,limit=5):
     #Update local file
     if not os.path.isfile(countFile):
         open(countFile,'w+').write(0)
     open(countFile,'w+').write(str(myCount))
     
     #Upload to iota ledger
-    uploadCount(count)
+    if count >= limit:
+        uploadCount(count)
 
 def uploadCount(count):
     subprocess.run(['node', 'gateway.js'])
