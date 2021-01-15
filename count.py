@@ -25,7 +25,7 @@ def setCount(myCount,limit=5):
     
     #Upload to iota ledger
     if myCount >= limit:
-        uploadCount(count)
+        uploadCount(myCount)
 
 def uploadCount(count):
     subprocess.run(['node', 'gateway.js'])
