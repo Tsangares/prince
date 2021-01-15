@@ -24,7 +24,7 @@ def setCount(myCount,limit=5):
     open(countFile,'w+').write(str(myCount))
     
     #Upload to iota ledger
-    if count >= limit:
+    if myCount >= limit:
         uploadCount(count)
 
 def uploadCount(count):
