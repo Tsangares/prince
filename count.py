@@ -20,15 +20,16 @@ def getCount():
             return 0
     
 def setCount(myCount,threshold=20):
+    #Upload to iota ledger
+    if myCount%threshold == 0:
+        print(f'Current count is {myCount}')
+        uploadCount()
+    myCount=0
     #Update local file
     if not os.path.isfile(countFile):
         open(countFile,'w+').write(f'{time.time()},0')
     open(countFile,'w+').write(f'{time.time()},{myCount}')
     
-    #Upload to iota ledger
-    if myCount%threshold == 0:
-        print(f'Current count is {myCount}')
-        uploadCount()
 
 def uploadCount():
     subprocess.run(['node', 'gateway.js'])
