@@ -19,7 +19,7 @@ def getCount():
             print("Error, the count file is corrupt. Resetting to zero.")
             return 0
     
-def setCount(myCount,threshold=5):
+def setCount(myCount,threshold=20):
     #Update local file
     if not os.path.isfile(countFile):
         open(countFile,'w+').write(f'{time.time()},0')
