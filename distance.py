@@ -9,7 +9,7 @@ from count import getCount, setCount
 
 # use Raspberry Pi board pin numbers
 GPIO.setmode(GPIO.BCM)
-
+GPIO.setwarnings(False)
 # set GPIO Pins
 pinTrigger = 18
 pinEcho = 24
