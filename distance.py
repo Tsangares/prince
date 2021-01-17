@@ -62,7 +62,6 @@ while True:
                 count += 1
                 counted = True
                 setCount(count)
-                print(f'Current count is {count}')
         else:
                 counted = False
         time.sleep(1)
