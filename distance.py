@@ -29,6 +29,8 @@ signal.signal(signal.SIGINT, close)
 GPIO.setup(pinTrigger, GPIO.OUT)
 GPIO.setup(pinEcho, GPIO.IN)
 
+counted = False
+
 while True:
 	# set Trigger to HIGH
 	GPIO.output(pinTrigger, True)
@@ -56,9 +58,12 @@ while True:
 	print (f"Distance: {distance:.01f} cm")
 
 
-	if(distance<=100):
+	if(distance<=100 and not counted):
 		count += 1
+                counted = True
                 setCount(count)
 		print(f'Current count is {count}')
+        else:
+                counted = False
 	time.sleep(1)
 

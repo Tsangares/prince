@@ -4,7 +4,7 @@ Basic test file, artificially increasing the local count file
 This is because I do not have the cirucits to test the other script.
 """
 
-import sys,os,json,subprocess
+import sys,os,json,subprocess,time
 
 countFile = 'count.txt'
 def getCount():
@@ -12,19 +12,21 @@ def getCount():
         return 0
     else:
         try:
-            return int(open(countFile).read())
-        except ValueError:
+            countStr = open(countFile).read()
+            if countStr==0: return 0
+            return int(countStr.split(',')[1])
+        except IndexError:
             print("Error, the count file is corrupt. Resetting to zero.")
             return 0
     
-def setCount(myCount,limit=5):
+def setCount(myCount,threshold=5):
     #Update local file
     if not os.path.isfile(countFile):
-        open(countFile,'w+').write(0)
-    open(countFile,'w+').write(str(myCount))
+        open(countFile,'w+').write(f'{time.time()},0')
+    open(countFile,'w+').write(f'{time.time()},{myCount}')
     
     #Upload to iota ledger
-    if myCount >= limit:
+    if myCount%threshold == 0:
         uploadCount()
 
 def uploadCount():
