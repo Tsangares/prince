@@ -24,7 +24,8 @@ def setCount(myCount,threshold=20):
     if myCount%threshold == 0:
         print(f'Current count is {myCount}')
         uploadCount()
-    myCount=0
+        myCount=0
+
     #Update local file
     if not os.path.isfile(countFile):
         open(countFile,'w+').write(f'{time.time()},0')
