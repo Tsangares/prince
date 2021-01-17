@@ -55,7 +55,7 @@ while True:
         # and divide by 2, because there and back
         distance = (TimeElapsed * 34300) / 2
 
-        print (f"Distance: {distance:.01f} cm")
+        #print (f"Distance: {distance:.01f} cm")
 
 
         if(distance<=100 and not counted):
