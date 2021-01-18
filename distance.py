@@ -33,7 +33,7 @@ GPIO.setup(pinEcho, GPIO.IN)
 
 counted = False
 
-def getMeasurement():
+def getDistance():
         # set Trigger to HIGH
         GPIO.output(pinTrigger, True)
         # set Trigger after 0.01ms to LOW
@@ -58,15 +58,10 @@ def getMeasurement():
         distance = (TimeElapsed * 34300) / 2
         return distance
 
-def getDistance(n=5):
-        distances = [getMeasurement() for i in range(n)]
-        return mean(distances)
-
 while True:
         distance = getDistance()
         
         #print (f"Distance: {distance:.01f} cm")
-
         
         if(distance<=threshold and not counted):
                 count = getCount()
@@ -79,5 +74,5 @@ while True:
         else:
                 #print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
                 pass
-        time.sleep(1)
+        time.sleep(0.5)
 
