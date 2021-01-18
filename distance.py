@@ -74,5 +74,5 @@ while True:
         else:
                 #print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
                 pass
-        time.sleep(0.5)
+        time.sleep(1)
 
