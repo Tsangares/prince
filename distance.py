@@ -17,7 +17,7 @@ pinEcho = 24
 setCount(0)
 settings = json.load(open('settings.json'))
 threshold = settings['threshold']
-distance = -1
+distance = threshold+1
 
 def close(signal, frame):
         print("\nTurning off ultrasonic distance detection...\n")
@@ -67,5 +67,7 @@ while True:
                 counted = True
         elif distance > threshold:
                 counted = False
+        else:
+                print(f"Sensor blocked, waiting to detect {threshold}cm")
         time.sleep(1)
 
