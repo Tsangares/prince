@@ -11,20 +11,21 @@ const api = composeAPI({ provider: "https://nodes.thetangle.org:443" });
 const uploadState = async ()=>{
     //Settings 
     const seed = (await getSeed()).substring(0,81);
-    const mode = 'public';
+    const mode = 'restricted';
     const security = 2;
     const depth = 3;
     const MWM = 14; //Minimum weight magnitude
     const count = asciiToTrytes(getCount()); //Fetch the current sensor count
+    const sidekey = (await getKey()).replace('\n','')
     
     console.log("Attaching message to tangle");
-    var channelState = await getState(seed,security,mode);
+    var channelState = await getState(seed,security,mode,sidekey);
     var mamMessage = createMessage(channelState, count);
     //const decodedMessage = parseMessage(mamMessage.payload, mamMessage.root);
     await mamAttach(api, mamMessage, depth, MWM)
     console.log("Attached, saving state.")
     saveState(channelState);
-    var fetched = await mamFetch(api, mamMessage.root, mode)
+    var fetched = await mamFetch(api, mamMessage.root, mode,sidekey)
     console.log(fetched);
 }
 
@@ -48,6 +49,14 @@ const getCount = ()=>{
     return null;
 }
 
+const getKey = ()=>{
+    try{
+	return fs.readFileSync('./key.txt','utf8');
+    }catch(e){
+	
+    }
+    return null;
+}
 //Save MAM channel state
 const saveState = (channelState)=>{
     try{
@@ -58,7 +67,7 @@ const saveState = (channelState)=>{
 }
 
 //Get MAM channel state
-const getState = (seed,security,mode)=>{
+const getState = (seed,security,mode,sidekey)=>{
     try {
         const currentState = fs.readFileSync('./channelState.json');
         if (currentState) {
@@ -66,7 +75,7 @@ const getState = (seed,security,mode)=>{
         }
     }catch(e){
         console.log("No previous state.");
-	return createChannel(seed, security, mode);
+	return createChannel(seed, security, mode,sidekey);
     }
     return null;
 }
