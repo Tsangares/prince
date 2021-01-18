@@ -29,8 +29,6 @@ def setCount(myCount,threshold=20):
     if not os.path.isfile(countFile):
         open(countFile,'w+').write(f'{time.time()},0')
     open(countFile,'w+').write(f'{time.time()},{myCount}')
-    print(f"Count should be {myCount}")
-    return myCount
 
 def uploadCount():
     subprocess.run(['node', 'gateway.js'])

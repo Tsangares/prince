@@ -15,7 +15,6 @@ pinTrigger = 18
 pinEcho = 24
 
 
-count = getCount()
 distance = 100
 
 def close(signal, frame):
@@ -59,7 +58,9 @@ while True:
 
 
         if(distance<=100 and not counted):
-                count = setCount(count+1)
+                count = getCount()
+                count += 1
+                setCount(count)
                 counted = True
                 print(f'Current count is {count}')
         else:
