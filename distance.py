@@ -14,6 +14,7 @@ GPIO.setwarnings(False)
 pinTrigger = 18
 pinEcho = 24
 
+setCount(0)
 
 distance = 100
 

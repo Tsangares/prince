@@ -26,7 +26,7 @@ def setCount(myCount,threshold=20):
         open(countFile,'w+').write(f'{time.time()},{myCount}')
 
     #Upload to iota ledger
-    if myCount%threshold == 0:
+    if myCount != 0 and myCount%threshold == 0:
         uploadCount()
         myCount=0
 
