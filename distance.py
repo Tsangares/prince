@@ -63,7 +63,7 @@ while True:
                 print(f'Current count is {count}')
                 setCount(count)
                 counted = True
-        else:
+        elif distance > 100:
                 counted = False
         time.sleep(1)
 
