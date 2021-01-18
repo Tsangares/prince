@@ -4,6 +4,7 @@ import signal
 import sys
 import os
 import json
+from statistics import mean
 from count import getCount, setCount
         
 
@@ -32,7 +33,7 @@ GPIO.setup(pinEcho, GPIO.IN)
 
 counted = False
 
-while True:
+def getMeasurement():
         # set Trigger to HIGH
         GPIO.output(pinTrigger, True)
         # set Trigger after 0.01ms to LOW
@@ -55,10 +56,18 @@ while True:
         # multiply with the sonic speed (34300 cm/s)
         # and divide by 2, because there and back
         distance = (TimeElapsed * 34300) / 2
+        return distance
 
+def getDistance(n=5):
+        distances = [getMeasurement() for i in range(n)]
+        return mean(distances)
+
+while True:
+        distance = getDistance()
+        
         #print (f"Distance: {distance:.01f} cm")
 
-
+        
         if(distance<=threshold and not counted):
                 count = getCount()
                 count += 1
@@ -68,6 +77,6 @@ while True:
         elif distance > threshold:
                 counted = False
         else:
-                print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance}cm")
+                print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
         time.sleep(1)
 
