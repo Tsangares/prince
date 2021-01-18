@@ -61,6 +61,7 @@ while True:
         if(distance<=100 and not counted):
                 count += 1
                 counted = True
+                print(f'Current count is {count}')
                 setCount(count)
         else:
                 counted = False

@@ -22,7 +22,6 @@ def getCount():
 def setCount(myCount,threshold=20):
     #Upload to iota ledger
     if myCount%threshold == 0:
-        print(f'Current count is {myCount}')
         uploadCount()
         myCount=0
 
