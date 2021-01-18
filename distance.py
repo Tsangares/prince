@@ -77,6 +77,7 @@ while True:
         elif distance > threshold:
                 counted = False
         else:
-                print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
+                #print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
+                pass
         time.sleep(1)
 
