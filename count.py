@@ -39,6 +39,9 @@ def uploadCount():
     subprocess.run(['node', 'gateway.js'])
 
 if __name__=="__main__":
+    settings = json.load(open('settings.json'))
+    threshold = settings['threshold']
+    print(f'threshold is {threshold}')
     count = getCount()
     print(f'Count is {count}, increasing')
     setCount(count+1)

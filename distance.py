@@ -15,8 +15,9 @@ pinTrigger = 18
 pinEcho = 24
 
 setCount(0)
-
-distance = 100
+settings = json.load(open('settings.json'))
+threshold = settings['threshold']
+distance = -1
 
 def close(signal, frame):
         print("\nTurning off ultrasonic distance detection...\n")
@@ -58,13 +59,13 @@ while True:
         #print (f"Distance: {distance:.01f} cm")
 
 
-        if(distance<=100 and not counted):
+        if(distance<=threshold and not counted):
                 count = getCount()
                 count += 1
                 print(f'Current count is {count}')
                 setCount(count)
                 counted = True
-        elif distance > 100:
+        elif distance > threshold:
                 counted = False
         time.sleep(1)
 
