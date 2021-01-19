@@ -42,7 +42,7 @@ const getSeed = ()=>{
 //Gets current person count
 const getCount = ()=>{
     try{
-	return fs.readFileSync('./count.txt','utf8');
+	return fs.readFileSync('./count.json','utf8');
     }catch(e){
 	
     }
