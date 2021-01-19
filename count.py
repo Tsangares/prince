@@ -28,7 +28,7 @@ def setCount(myCount,threshold=20):
     }
     #Update local file
     json.dump(template,open(countFile,'w+'))
-    print(open(countFile).read())
+    #print(open(countFile).read())
     #Upload to iota ledger
     if myCount != 0 and myCount%threshold == 0:
         uploadCount()
