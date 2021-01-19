@@ -5,6 +5,7 @@ This is because I do not have the cirucits to test the other script.
 """
 
 import sys,os,json,subprocess,time
+from datetime import datetime
 
 countFile = 'count.json'
 
@@ -20,9 +21,10 @@ def getCount():
             return 0
     
 def setCount(myCount,threshold=20):
+    dateTime = datetime.now()
     template={
         'count': myCount,
-        'time': time.time()
+        'time': str(dateTime)
     }
     #Update local file
     json.dump(template,open(countFile,'w+'))
