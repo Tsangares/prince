@@ -6,33 +6,33 @@ This is because I do not have the cirucits to test the other script.
 
 import sys,os,json,subprocess,time
 
-countFile = 'count.txt'
+countFile = 'count.json'
+
 def getCount():
     if not os.path.isfile(countFile):
         return 0
     else:
         try:
-            countStr = open(countFile).read()
-            if countStr==0: return 0
-            return int(countStr.split(',')[1])
+            data = json.load(open(countFile))
+            return int(data['count'])
         except IndexError:
             print("Error, the count file is corrupt. Resetting to zero.")
             return 0
     
 def setCount(myCount,threshold=20):
+    template={
+        'count': myCount,
+        'time': time.time()
+    }
     #Update local file
-    if not os.path.isfile(countFile):
-        open(countFile,'w+').write(f'{time.time()},0')
-    print(myCount)
-    open(countFile,'w+').write(f'{time.time()},{myCount}')
+    json.dump(template,open(countFile,'w+'))
     print(open(countFile).read())
     #Upload to iota ledger
     if myCount != 0 and myCount%threshold == 0:
         uploadCount()
-        myCount=0
-
+        template['count']=0
     #Update local file
-    open(countFile,'w+').write(f'{time.time()},{myCount}')
+    json.dump(template,open(countFile,'w+'))
 
 def uploadCount():
     subprocess.run(['node', 'gateway.js'])
