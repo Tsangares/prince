@@ -78,7 +78,7 @@ while True:
                 #print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
                 pass
         time.sleep(1)
-        duration = time.time()-start
+        duration = time.time()-startTime
         if (duration>60*pollInterval):
                 uploadCount()
                 startTime=time.time()
