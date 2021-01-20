@@ -5,7 +5,7 @@ import sys
 import os
 import json
 from statistics import mean
-from count import getCount, setCount
+from count import *
         
 
 # use Raspberry Pi board pin numbers
@@ -18,6 +18,7 @@ pinEcho = 24
 setCount(0)
 settings = json.load(open('settings.json'))
 threshold = settings['threshold']
+pollInterval = settings['interval']
 distance = threshold+1
 
 def close(signal, frame):
@@ -58,6 +59,8 @@ def getDistance():
         distance = (TimeElapsed * 34300) / 2
         return distance
 
+startTime = time.time()
+duration = 0
 while True:
         distance = getDistance()
         
@@ -75,4 +78,8 @@ while True:
                 #print(f"Sensor blocked, waiting to detect {threshold}cm; currently at {distance:.01f}cm")
                 pass
         time.sleep(1)
+        duration = time.time()-start
+        if (duration>60*pollInterval):
+                uploadCount()
+                startTime=time.time()
 
