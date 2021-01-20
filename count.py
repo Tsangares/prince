@@ -25,7 +25,7 @@ def setCount(myCount,threshold=20):
     template={
         'count': myCount,
         'time': str(dateTime),
-        'message': 'counting'
+        'message': 'Time to clean'
     }
     #Update local file
     json.dump(template,open(countFile,'w+'))
