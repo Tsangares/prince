@@ -1,4 +1,5 @@
 {
     "threshold": 100,
-    "interval": 1
+    "interval": 1,
+    "useInterval": false
 }

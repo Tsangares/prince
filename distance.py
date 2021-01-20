@@ -19,6 +19,7 @@ setCount(0)
 settings = json.load(open('settings.json'))
 threshold = settings['threshold']
 pollInterval = settings['interval']
+useInterval = settings['useInterval']
 distance = threshold+1
 
 def close(signal, frame):
@@ -79,7 +80,7 @@ while True:
                 pass
         time.sleep(1)
         duration = time.time()-startTime
-        if (duration>60*pollInterval):
+        if useInterval and duration>60*pollInterval:
                 uploadCount()
                 startTime=time.time()
 
