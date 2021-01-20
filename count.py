@@ -41,6 +41,7 @@ def uploadCount():
     subprocess.run(['node', 'gateway.js'])
 
 def uploadOkay():
+    print("Uploading a message saying that the sensor is okay.")
     dateTime = datetime.now()
     count = getCount()
     template={
@@ -52,6 +53,9 @@ def uploadOkay():
     subprocess.run(['node', 'gateway.js'])
     
 if __name__=="__main__":
+    import sys
+    if len(sys.argv)>1:
+        uploadOkay()
     settings = json.load(open('settings.json'))
     threshold = settings['threshold']
     print(f'threshold is {threshold}')
