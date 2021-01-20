@@ -24,7 +24,8 @@ def setCount(myCount,threshold=20):
     dateTime = datetime.now()
     template={
         'count': myCount,
-        'time': str(dateTime)
+        'time': str(dateTime),
+        'message': 'counting'
     }
     #Update local file
     json.dump(template,open(countFile,'w+'))
@@ -39,6 +40,17 @@ def setCount(myCount,threshold=20):
 def uploadCount():
     subprocess.run(['node', 'gateway.js'])
 
+def uploadOkay():
+    dateTime = datetime.now()
+    count = getCount()
+    template={
+        'count': count,
+        'time': str(dateTime),
+        'message': 'Sensor Okay'
+    }
+    json.dump(template,open(countFile,'w+'))
+    subprocess.run(['node', 'gateway.js'])
+    
 if __name__=="__main__":
     settings = json.load(open('settings.json'))
     threshold = settings['threshold']

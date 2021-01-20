@@ -81,6 +81,6 @@ while True:
         time.sleep(1)
         duration = time.time()-startTime
         if useInterval and duration>60*pollInterval:
-                uploadCount()
+                uploadOkay()
                 startTime=time.time()
 
